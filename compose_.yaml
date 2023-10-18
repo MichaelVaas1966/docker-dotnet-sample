@@ -8,13 +8,6 @@ services:
     depends_on:
       db:
         condition: service_healthy
-    develop:
-      watch:
-        - action: rebuild
-          path: .
-    environment:
-       - ASPNETCORE_ENVIRONMENT=Development
-       - ASPNETCORE_URLS=http://+:80'
   db:
     image: postgres
     restart: always
@@ -28,8 +21,6 @@ services:
       - POSTGRES_PASSWORD_FILE=/run/secrets/db-password
     expose:
       - 5432
-    ports:
-      - 5432:5432
     healthcheck:
       test: [ "CMD", "pg_isready" ]
       interval: 10s
